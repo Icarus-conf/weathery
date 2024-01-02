@@ -43,7 +43,7 @@ class _LocationScreenState extends State<LocationScreen> {
       var condition = weatherData["weather"][0]["id"];
       weatherIcon = weather.getWeatherIcon(condition);
 
-      weatherMessage = weather.getMessage(temp);
+      // weatherMessage = weather.getMessage(temp);
 
       cityName = weatherData["name"];
     });
@@ -59,41 +59,44 @@ class _LocationScreenState extends State<LocationScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () async {
-                      var weatherData = await weather.getLocationWeather();
-                      updateUI(weatherData);
-                    },
-                    child: Image.asset(
-                      'images/update.png',
-                      width: 50,
-                      color: Color(0xFF003049),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      var typedName = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CityScreen(),
-                        ),
-                      );
-                      if (typedName != null) {
-                        var weatherData =
-                            await weather.getCityWeather(typedName);
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    TextButton(
+                      onPressed: () async {
+                        var weatherData = await weather.getLocationWeather();
                         updateUI(weatherData);
-                      }
-                    },
-                    child: Image.asset(
-                      'images/location.png',
-                      width: 50,
-                      color: Color(0xFF003049),
+                      },
+                      child: Image.asset(
+                        'images/update.png',
+                        width: 50,
+                        color: Color(0xFF003049),
+                      ),
                     ),
-                  ),
-                ],
+                    TextButton(
+                      onPressed: () async {
+                        var typedName = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CityScreen(),
+                          ),
+                        );
+                        if (typedName != null) {
+                          var weatherData =
+                              await weather.getCityWeather(typedName);
+                          updateUI(weatherData);
+                        }
+                      },
+                      child: Image.asset(
+                        'images/location.png',
+                        width: 50,
+                        color: Color(0xFF003049),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Column(
                 children: <Widget>[
@@ -105,27 +108,21 @@ class _LocationScreenState extends State<LocationScreen> {
                   SizedBox(
                     height: 25,
                   ),
-                  CircleAvatar(
-                    radius: 100,
-                    backgroundColor: Color(0xFFfdffb6),
-                    child: Lottie.asset(
-                      weatherIcon,
-                      width: 200,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: PoppinsText(
-                      text: "$weatherMessage in $cityName.",
-                      fontS: 25,
-                      textAlign: TextAlign.center,
-                      color: Colors.black,
-                    ),
+                  Lottie.asset(
+                    weatherIcon,
+                    width: 200,
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: PoppinsText(
+                  text: cityName,
+                  fontS: 25,
+                  textAlign: TextAlign.center,
+                  color: Color(0xFF003049),
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),

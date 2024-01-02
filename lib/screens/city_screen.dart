@@ -13,25 +13,26 @@ class _CityScreenState extends State<CityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/city_background.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        color: Colors.white,
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 50.0,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15.0,
+                  vertical: 15,
+                ),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(
+                      'images/left-arrow.png',
+                      width: 50,
+                    ),
                   ),
                 ),
               ),
@@ -52,10 +53,10 @@ class _CityScreenState extends State<CityScreen> {
                   ),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Colors.grey[300],
                     hintText: "Enter City Name..",
                     hintStyle: TextStyle(
-                      color: Colors.grey[400],
+                      color: Colors.grey[500],
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
@@ -66,7 +67,14 @@ class _CityScreenState extends State<CityScreen> {
                   ),
                 ),
               ),
-              TextButton(
+              SizedBox(
+                height: 25,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF003049),
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                ),
                 onPressed: () {
                   Navigator.pop(context, cityName);
                 },
