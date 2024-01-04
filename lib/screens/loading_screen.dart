@@ -34,7 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return const Scaffold(
       body: Center(
         child: SpinKitSquareCircle(
-          color: Colors.black,
+          color: Color(0xFF284b63),
           size: 100.0,
         ),
       ),
