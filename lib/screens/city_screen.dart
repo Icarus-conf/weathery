@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 
 class CityScreen extends StatefulWidget {
+  const CityScreen({super.key});
+
   @override
   _CityScreenState createState() => _CityScreenState();
 }
@@ -14,14 +16,14 @@ class _CityScreenState extends State<CityScreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15.0,
-                  vertical: 15,
+                  vertical: 15.0,
                 ),
                 child: Align(
                   alignment: Alignment.topLeft,
@@ -37,18 +39,18 @@ class _CityScreenState extends State<CityScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: null,
               ),
               Container(
-                padding: EdgeInsets.all(
+                padding: const EdgeInsets.all(
                   25,
                 ),
                 child: TextField(
                   onChanged: (value) {
                     cityName = value;
                   },
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
@@ -67,18 +69,19 @@ class _CityScreenState extends State<CityScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF003049),
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  backgroundColor: const Color(0xFF003049),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 ),
                 onPressed: () {
                   Navigator.pop(context, cityName);
                 },
-                child: Text(
+                child: const Text(
                   'Get Weather',
                   style: kButtonTextStyle,
                 ),

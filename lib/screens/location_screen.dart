@@ -7,7 +7,7 @@ import 'package:lottie/lottie.dart';
 
 class LocationScreen extends StatefulWidget {
   final locationWeather;
-  LocationScreen(this.locationWeather);
+  const LocationScreen(this.locationWeather, {super.key});
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -20,6 +20,9 @@ class _LocationScreenState extends State<LocationScreen> {
   late String weatherIcon;
   late String cityName;
   late String weatherMessage;
+  late int feelsLike;
+  late double tempMin;
+  late double tempMax;
 
   @override
   void initState() {
@@ -43,6 +46,13 @@ class _LocationScreenState extends State<LocationScreen> {
       var condition = weatherData["weather"][0]["id"];
       weatherIcon = weather.getWeatherIcon(condition);
 
+      double feelsLikeToint = weatherData['main']['feels_like'];
+      feelsLike = feelsLikeToint.toInt();
+
+      tempMin = weatherData['main']['temp_min'];
+
+      tempMax = weatherData['main']['temp_max'];
+
       // weatherMessage = weather.getMessage(temp);
 
       cityName = weatherData["name"];
@@ -54,7 +64,7 @@ class _LocationScreenState extends State<LocationScreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,7 +82,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: Image.asset(
                         'images/update.png',
                         width: 50,
-                        color: Color(0xFF003049),
+                        color: const Color(0xFF003049),
                       ),
                     ),
                     TextButton(
@@ -80,7 +90,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         var typedName = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CityScreen(),
+                            builder: (context) => const CityScreen(),
                           ),
                         );
                         if (typedName != null) {
@@ -92,7 +102,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: Image.asset(
                         'images/location.png',
                         width: 50,
-                        color: Color(0xFF003049),
+                        color: const Color(0xFF003049),
                       ),
                     ),
                   ],
@@ -102,10 +112,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   PoppinsText(
                     text: '$temp°',
-                    fontS: 100,
-                    color: Color(0xFF003049),
+                    fontS: 70,
+                    color: const Color(0xFF003049),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   Lottie.asset(
@@ -114,15 +124,77 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: PoppinsText(
-                  text: cityName,
-                  fontS: 25,
-                  textAlign: TextAlign.center,
-                  color: Color(0xFF003049),
-                  fontWeight: FontWeight.w700,
-                ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PoppinsText(
+                        text: 'Feel\'s Like:',
+                        fontS: 25,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF003049),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      PoppinsText(
+                        text: feelsLike.toString() + '°',
+                        fontS: 25,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PoppinsText(
+                        text: 'Max: ' + tempMax.toInt().toString() + '°',
+                        fontS: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("/"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      PoppinsText(
+                        text: 'Min: ' + tempMin.toInt().toString() + '°',
+                        fontS: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: PoppinsText(
+                      text: cityName,
+                      fontS: 25,
+                      textAlign: TextAlign.center,
+                      color: const Color(0xFF003049),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  GestureDetector(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[200],
+                      child: Image.asset(
+                        'images/placeholder.png',
+                        width: 25,
+                      ),
+                    ),
+                    onTap: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
