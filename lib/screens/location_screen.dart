@@ -197,9 +197,20 @@ class _LocationScreenState extends State<LocationScreen> {
                           SizedBox(
                             width: 10,
                           ),
-                          PoppinsText(
-                            text: humidity.toString() + '%',
-                            fontS: 16,
+                          Row(
+                            children: [
+                              Image.asset(
+                                'images/humidity.png',
+                                width: 25,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              PoppinsText(
+                                text: humidity.toString() + '%',
+                                fontS: 16,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -213,9 +224,20 @@ class _LocationScreenState extends State<LocationScreen> {
                             fontS: 16,
                             fontWeight: FontWeight.w700,
                           ),
-                          PoppinsText(
-                            text: windSpeed.toInt().toString() + ' km/h',
-                            fontS: 16,
+                          Row(
+                            children: [
+                              Image.asset(
+                                'images/wind.png',
+                                width: 25,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              PoppinsText(
+                                text: windSpeed.toInt().toString() + ' km/h',
+                                fontS: 16,
+                              ),
+                            ],
                           ),
                         ],
                       ),
