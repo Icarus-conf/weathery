@@ -166,17 +166,17 @@ class _LocationScreenState extends State<LocationScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PoppinsText(
+                      const PoppinsText(
                         text: 'Feels Like:',
                         fontS: 25,
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF003049),
+                        color: Color(0xFF003049),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       PoppinsText(
-                        text: feelsLike.toString() + '°',
+                        text: '$feelsLike°',
                         fontS: 25,
                       ),
                     ],
@@ -185,19 +185,19 @@ class _LocationScreenState extends State<LocationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PoppinsText(
-                        text: 'Max: ' + tempMax.toInt().toString() + '°',
+                        text: 'Max: ${tempMax.toInt()}°',
                         fontS: 14,
                         fontWeight: FontWeight.w600,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
-                      Text("/"),
-                      SizedBox(
+                      const Text("/"),
+                      const SizedBox(
                         width: 10,
                       ),
                       PoppinsText(
-                        text: 'Min: ' + tempMin.toInt().toString() + '°',
+                        text: 'Min: ${tempMin.toInt()}°',
                         fontS: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -210,12 +210,12 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: [
                   Column(
                     children: [
-                      PoppinsText(
+                      const PoppinsText(
                         text: "Humidity",
                         fontS: 16,
                         fontWeight: FontWeight.w700,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Row(
@@ -224,23 +224,23 @@ class _LocationScreenState extends State<LocationScreen> {
                             'images/humidity.png',
                             width: 25,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           PoppinsText(
-                            text: humidity.toString() + '%',
+                            text: '$humidity%',
                             fontS: 16,
                           ),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 25,
                   ),
                   Column(
                     children: [
-                      PoppinsText(
+                      const PoppinsText(
                         text: "Wind",
                         fontS: 16,
                         fontWeight: FontWeight.w700,
@@ -251,11 +251,11 @@ class _LocationScreenState extends State<LocationScreen> {
                             'images/wind.png',
                             width: 25,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           PoppinsText(
-                            text: windSpeed.toInt().toString() + ' km/h',
+                            text: '${windSpeed.toInt()} km/h',
                             fontS: 16,
                           ),
                         ],
@@ -275,7 +275,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                       Column(
                         children: [
-                          PoppinsText(
+                          const PoppinsText(
                             text: 'Sunrise',
                             fontS: 14,
                             fontWeight: FontWeight.w700,
@@ -288,7 +288,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 25,
                   ),
                   Row(
@@ -297,12 +297,12 @@ class _LocationScreenState extends State<LocationScreen> {
                         'images/sunset.png',
                         width: 50,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Column(
                         children: [
-                          PoppinsText(
+                          const PoppinsText(
                             text: 'Sunset',
                             fontS: 14,
                             fontWeight: FontWeight.w700,
