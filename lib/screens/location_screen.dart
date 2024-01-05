@@ -205,10 +205,10 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const PoppinsText(
                         text: "Humidity",
@@ -235,6 +235,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     width: 25,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const PoppinsText(
                         text: "Wind",
