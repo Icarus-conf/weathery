@@ -26,6 +26,10 @@ class _LocationScreenState extends State<LocationScreen> {
   late int humidity;
   late double windSpeed;
   late String description;
+  late DateTime sunriseTime;
+  late String sunriseTimeInHour;
+  late DateTime sunsetTime;
+  late String sunsetTimeInHour;
 
   @override
   void initState() {
@@ -62,9 +66,31 @@ class _LocationScreenState extends State<LocationScreen> {
 
       description = weatherData['weather'][0]['description'];
 
+      int sunrise = weatherData['sys']['sunrise'];
+
+      sunriseTime = DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
+
+      int sunset = weatherData['sys']['sunset'];
+
+      sunsetTime = DateTime.fromMillisecondsSinceEpoch(sunset * 1000);
+
       // weatherMessage = weather.getMessage(temp);
 
       cityName = weatherData["name"];
+
+      String formatTime(int hour, int minute) {
+        String period = 'AM';
+        if (hour >= 12) {
+          period = 'PM';
+          if (hour > 12) {
+            hour -= 12;
+          }
+        }
+        return '$hour:${minute.toString().padLeft(2, '0')} $period';
+      }
+
+      sunriseTimeInHour = formatTime(sunriseTime.hour, sunriseTime.minute);
+      sunsetTimeInHour = formatTime(sunsetTime.hour, sunsetTime.minute);
     });
   }
 
@@ -126,7 +152,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                   Lottie.asset(
                     weatherIcon,
-                    width: 200,
+                    width: 180,
                   ),
                   PoppinsText(
                     text: description,
@@ -137,142 +163,185 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
               Column(
                 children: [
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PoppinsText(
-                            text: 'Feel\'s Like:',
-                            fontS: 25,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF003049),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          PoppinsText(
-                            text: feelsLike.toString() + '°',
-                            fontS: 25,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PoppinsText(
-                            text: 'Max: ' + tempMax.toInt().toString() + '°',
-                            fontS: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("/"),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          PoppinsText(
-                            text: 'Min: ' + tempMin.toInt().toString() + '°',
-                            fontS: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          PoppinsText(
-                            text: "Humidity",
-                            fontS: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                'images/humidity.png',
-                                width: 25,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              PoppinsText(
-                                text: humidity.toString() + '%',
-                                fontS: 16,
-                              ),
-                            ],
-                          ),
-                        ],
+                      PoppinsText(
+                        text: 'Feels Like:',
+                        fontS: 25,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF003049),
                       ),
                       SizedBox(
-                        width: 25,
+                        width: 10,
                       ),
-                      Column(
+                      PoppinsText(
+                        text: feelsLike.toString() + '°',
+                        fontS: 25,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PoppinsText(
+                        text: 'Max: ' + tempMax.toInt().toString() + '°',
+                        fontS: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("/"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      PoppinsText(
+                        text: 'Min: ' + tempMin.toInt().toString() + '°',
+                        fontS: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      PoppinsText(
+                        text: "Humidity",
+                        fontS: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Row(
                         children: [
-                          PoppinsText(
-                            text: "Wind",
-                            fontS: 16,
-                            fontWeight: FontWeight.w700,
+                          Image.asset(
+                            'images/humidity.png',
+                            width: 25,
                           ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                'images/wind.png',
-                                width: 25,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              PoppinsText(
-                                text: windSpeed.toInt().toString() + ' km/h',
-                                fontS: 16,
-                              ),
-                            ],
+                          SizedBox(
+                            width: 10,
+                          ),
+                          PoppinsText(
+                            text: humidity.toString() + '%',
+                            fontS: 16,
                           ),
                         ],
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 50,
+                    width: 25,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: PoppinsText(
-                          text: cityName,
-                          fontS: 25,
-                          textAlign: TextAlign.center,
-                          color: const Color(0xFF003049),
-                          fontWeight: FontWeight.w700,
-                        ),
+                      PoppinsText(
+                        text: "Wind",
+                        fontS: 16,
+                        fontWeight: FontWeight.w700,
                       ),
-                      GestureDetector(
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey[200],
-                          child: Image.asset(
-                            'images/placeholder.png',
+                      Row(
+                        children: [
+                          Image.asset(
+                            'images/wind.png',
                             width: 25,
                           ),
-                        ),
-                        onTap: () async {
-                          var weatherData = await weather.getLocationWeather();
-                          updateUI(weatherData);
-                        },
+                          SizedBox(
+                            width: 10,
+                          ),
+                          PoppinsText(
+                            text: windSpeed.toInt().toString() + ' km/h',
+                            fontS: 16,
+                          ),
+                        ],
                       ),
                     ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        'images/sunrise.png',
+                        width: 50,
+                      ),
+                      Column(
+                        children: [
+                          PoppinsText(
+                            text: 'Sunrise',
+                            fontS: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          PoppinsText(
+                            text: sunriseTimeInHour,
+                            fontS: 14,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'images/sunset.png',
+                        width: 50,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        children: [
+                          PoppinsText(
+                            text: 'Sunset',
+                            fontS: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          PoppinsText(
+                            text: sunsetTimeInHour,
+                            fontS: 14,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: PoppinsText(
+                      text: cityName,
+                      fontS: 25,
+                      textAlign: TextAlign.center,
+                      color: const Color(0xFF003049),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  GestureDetector(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[200],
+                      child: Image.asset(
+                        'images/placeholder.png',
+                        width: 25,
+                      ),
+                    ),
+                    onTap: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                   ),
                 ],
               ),
