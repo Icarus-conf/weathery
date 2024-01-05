@@ -208,7 +208,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
+                  Row(
                     children: [
                       const PoppinsText(
                         text: "Humidity",
@@ -218,47 +218,42 @@ class _LocationScreenState extends State<LocationScreen> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'images/humidity.png',
-                            width: 25,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          PoppinsText(
-                            text: '$humidity%',
-                            fontS: 16,
-                          ),
-                        ],
+                      PoppinsText(
+                        text: '$humidity%',
+                        fontS: 16,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Image.asset(
+                        'images/humidity.png',
+                        width: 25,
                       ),
                     ],
                   ),
                   const SizedBox(
                     width: 25,
                   ),
-                  Column(
+                  Row(
                     children: [
                       const PoppinsText(
                         text: "Wind",
                         fontS: 16,
                         fontWeight: FontWeight.w700,
                       ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'images/wind.png',
-                            width: 25,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          PoppinsText(
-                            text: '${windSpeed.toInt()} km/h',
-                            fontS: 16,
-                          ),
-                        ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      PoppinsText(
+                        text: '${windSpeed.toInt()} km/h',
+                        fontS: 16,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Image.asset(
+                        'images/wind.png',
+                        width: 25,
                       ),
                     ],
                   ),
