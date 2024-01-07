@@ -6,4 +6,4 @@ const kButtonTextStyle = TextStyle(
 );
 
 const primaryColor = Color(0xFF003049);
-const secondaryColor = Color(0xFFcfdbd5);
+const secondaryColor = Color(0xFFffffff);

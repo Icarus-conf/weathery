@@ -21,12 +21,12 @@ class _LocationScreenState extends State<LocationScreen> {
   late int temp;
   late String weatherIcon;
   late String cityName;
-  late String weatherMessage;
+  // late String weatherMessage;
   late int feelsLike;
-  late double tempMin;
-  late double tempMax;
+  late int tempMin;
+  late int tempMax;
   late int humidity;
-  late double windSpeed;
+  late int windSpeed;
   late String description;
   late DateTime sunriseTime;
   late String sunriseTimeInHour;
@@ -45,7 +45,7 @@ class _LocationScreenState extends State<LocationScreen> {
       if (weatherData == null) {
         temp = 0;
         weatherIcon = 'Error';
-        weatherMessage = 'Unable to get weather data';
+        // weatherMessage = 'Unable to get weather data';
         cityName = '';
         return;
       }
@@ -58,13 +58,16 @@ class _LocationScreenState extends State<LocationScreen> {
       double feelsLikeToint = weatherData['main']['feels_like'];
       feelsLike = feelsLikeToint.toInt();
 
-      tempMin = weatherData['main']['temp_min'];
+      double temperatureMin = weatherData['main']['temp_min'];
+      tempMin = temperatureMin.toInt();
 
-      tempMax = weatherData['main']['temp_max'];
+      double temperatureMax = weatherData['main']['temp_max'];
+      tempMax = temperatureMax.toInt();
 
       humidity = weatherData['main']['humidity'];
 
-      windSpeed = weatherData['wind']['speed'];
+      double windSpeedDouble = weatherData['wind']['speed'];
+      windSpeed = windSpeedDouble.toInt();
 
       description = weatherData['weather'][0]['description'];
 
@@ -206,7 +209,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PoppinsText(
-                        text: 'Max: ${tempMax.toInt()}°',
+                        text: 'Max: ${tempMax}°',
                         fontS: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -218,7 +221,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         width: 10,
                       ),
                       PoppinsText(
-                        text: 'Min: ${tempMin.toInt()}°',
+                        text: 'Min: ${tempMin}°',
                         fontS: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -267,7 +270,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         width: 10,
                       ),
                       PoppinsText(
-                        text: '${windSpeed.toInt()} km/h',
+                        text: '${windSpeed} km/h',
                         fontS: 16,
                       ),
                       const SizedBox(
