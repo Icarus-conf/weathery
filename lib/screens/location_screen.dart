@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
+import 'package:clima/main.dart';
 import 'package:clima/screens/city_screen.dart';
 import 'package:clima/services/weather.dart';
+import 'package:clima/utilities/constants.dart';
 import 'package:clima/utilities/text_format.dart';
 import 'package:flutter/material.dart';
 
@@ -98,7 +102,6 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.white,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
@@ -117,9 +120,23 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: Image.asset(
                         'images/update.png',
                         width: 40,
-                        color: const Color(0xFF003049),
+                        color: MyApp.themeNotifier.value == ThemeMode.light
+                            ? primaryColor
+                            : secondaryColor,
                       ),
                     ),
+                    IconButton(
+                        onPressed: () {
+                          MyApp.themeNotifier.value =
+                              MyApp.themeNotifier.value == ThemeMode.light
+                                  ? ThemeMode.dark
+                                  : ThemeMode.light;
+                        },
+                        icon: Icon(
+                          MyApp.themeNotifier.value == ThemeMode.light
+                              ? Icons.dark_mode
+                              : Icons.light_mode,
+                        )),
                     TextButton(
                       onPressed: () async {
                         var typedName = await Navigator.push(
@@ -137,7 +154,9 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: Image.asset(
                         'images/location.png',
                         width: 40,
-                        color: const Color(0xFF003049),
+                        color: MyApp.themeNotifier.value == ThemeMode.light
+                            ? primaryColor
+                            : secondaryColor,
                       ),
                     ),
                   ],
@@ -148,7 +167,9 @@ class _LocationScreenState extends State<LocationScreen> {
                   PoppinsText(
                     text: '$temp°',
                     fontS: 70,
-                    color: const Color(0xFF003049),
+                    color: MyApp.themeNotifier.value == ThemeMode.light
+                        ? primaryColor
+                        : secondaryColor,
                   ),
                   Lottie.asset(
                     weatherIcon,
@@ -166,11 +187,13 @@ class _LocationScreenState extends State<LocationScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const PoppinsText(
+                      PoppinsText(
                         text: 'Feels Like:',
                         fontS: 25,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF003049),
+                        color: MyApp.themeNotifier.value == ThemeMode.light
+                            ? primaryColor
+                            : secondaryColor,
                       ),
                       const SizedBox(
                         width: 10,
@@ -322,7 +345,9 @@ class _LocationScreenState extends State<LocationScreen> {
                       text: cityName,
                       fontS: 25,
                       textAlign: TextAlign.center,
-                      color: const Color(0xFF003049),
+                      color: MyApp.themeNotifier.value == ThemeMode.light
+                          ? primaryColor
+                          : secondaryColor,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
