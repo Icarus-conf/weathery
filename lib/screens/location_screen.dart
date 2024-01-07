@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:clima/main.dart';
 import 'package:clima/screens/city_screen.dart';
 import 'package:clima/services/weather.dart';
